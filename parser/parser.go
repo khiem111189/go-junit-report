@@ -331,3 +331,16 @@ func (r *Report) Failures() int {
 
 	return count
 }
+
+// To check if the report containing any errors or failures
+func (r *Report) ContainsErrorsOrFailures() bool {
+	for _, p := range r.Packages {
+		for _, t := range p.Tests {
+			if t.Result == FAIL || t.Result == ERROR {
+				return true
+			}
+		}
+	}
+
+	return false
+}
